@@ -16,12 +16,69 @@ body {
   padding: 20px;
   overflow-x: hidden;
   position: relative;
+  transition: background 0.5s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #16213e 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+body.transitioning {
+  animation: themeTransition 0.6s ease-in-out;
+}
+
+@keyframes themeTransition {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Full Page Celebration Effect */
+body.page-celebration {
+  animation: pageCelebration 2.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body.page-celebration::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle at center, rgba(255, 192, 203, 0.2) 0%, transparent 70%);
+  animation: rippleEffect 2.5s ease-out;
+}
+
+@keyframes pageCelebration {
+  0% { transform: scale(1); }
+  5% { transform: scale(1.01); }
+  10% { transform: scale(0.995); }
+  15% { transform: scale(1.005); }
+  20% { transform: scale(1); }
+}
+
+@keyframes rippleEffect {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
 }
 
 #root {
@@ -39,6 +96,19 @@ html {
 @media (max-width: 768px) {
   body {
     padding: 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  #root {
+    min-height: auto !important;
+    padding: 0 !important;
   }
 }
 
